@@ -1,16 +1,5 @@
 export default {
   async fetch(request) {
-    const ua = request.headers.get("User-Agent") || "";
-
-    // 限制 OTT Player 访问
-    const allowed = /OTTPlayer|SmartIPTV|SSIPTV/i.test(ua);
-    if (!allowed) {
-      return new Response("403 Forbidden - OTT Player Only", {
-        status: 403,
-        headers: { "content-type": "text/plain; charset=utf-8" },
-      });
-    }
-
     const targetBase = "https://on-ott.github.io/py";
     const url = new URL(request.url);
     let path = url.pathname;
