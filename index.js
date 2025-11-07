@@ -28,12 +28,14 @@ export default {
         );
       }
 
-      // 缓存响应（1 小时）
-      const responseClone = response.clone();
-      responseClone.headers.append("Cache-Control", "public, max-age=3600");
-      await cache.put(request, responseClone);
+      // 创建可修改的响应对象
+      const responseWithCache = new Response(response.body, response);
+      responseWithCache.headers.set("Cache-Control", "public, max-age=3600");
 
-      return response;
+      // 写入缓存
+      await cache.put(request, responseWithCache.clone());
+
+      return responseWithCache;
     } catch (err) {
       return new Response(
         "⚠️ Error fetching resource: " + err.message,
