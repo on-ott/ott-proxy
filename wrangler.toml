@@ -1,4 +1,4 @@
-name = "ott-proxy"
+name = "pl"
 main = "index.js"
 compatibility_date = "2025-11-07"
 
